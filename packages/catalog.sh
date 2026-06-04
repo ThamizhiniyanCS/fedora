@@ -66,6 +66,7 @@ declare -A PKG_DESC=(
   [md.obsidian.Obsidian]="Private and flexible writing app that adapts to the way you think"
   [app.zen_browser.zen]="Privacy-focused browser based on Firefox with a beautiful UI"
   [io.github.ungoogled_software.ungoogled_chromium]="Chromium with Google services and dependencies removed"
+  [io.podman_desktop.PodmanDesktop]="A graphical tool for developing on containers and Kubernetes"
 
   # --- script-based ---
   [rustup]="Installer for the Rust programming language toolchain"
@@ -129,6 +130,7 @@ declare -A PKG_URL=(
   [md.obsidian.Obsidian]="https://obsidian.md/"
   [app.zen_browser.zen]="https://zen-browser.app/"
   [io.github.ungoogled_software.ungoogled_chromium]="https://github.com/ungoogled-software/ungoogled-chromium"
+  [io.podman_desktop.PodmanDesktop]="https://podman-desktop.io/downloads"
 
   # --- script-based ---
   [rustup]="https://rustup.rs/"

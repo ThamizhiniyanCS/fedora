@@ -157,6 +157,11 @@ install_cargo_packages() {
 
   header "Installing Cargo packages"
 
+  # Source cargo environment if not in PATH (needed for same-session installs)
+  if ! command -v cargo &> /dev/null && [[ -f "$HOME/.cargo/env" ]]; then
+    source "$HOME/.cargo/env"
+  fi
+
   while IFS= read -r line; do
     [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
     [[ "$line" =~ ^\[.*\]$ ]] && continue
