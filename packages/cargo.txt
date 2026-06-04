@@ -1,0 +1,10 @@
+# ==============================================================================
+# Cargo Packages
+# ==============================================================================
+# Packages installed via `cargo install`.
+# Requires rustup/cargo to be installed first (see packages/scripts.txt).
+# ==============================================================================
+
+[cli-tools]
+eza
+resvg

@@ -1,0 +1,30 @@
+# ==============================================================================
+# Script-based Installers
+# ==============================================================================
+# Tools installed via curl-piped shell scripts.
+#
+# Format:
+#   [tool_name]
+#   <shell command>
+#
+# The [tool_name] header identifies the tool for logging and tracking.
+# The line immediately after the header is the install command.
+# ==============================================================================
+
+[rustup]
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+[lazydocker]
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+[starship]
+curl -sS https://starship.rs/install.sh | sh
+
+[uv]
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+[bun]
+curl -fsSL https://bun.sh/install | bash
+
+[fnm]
+curl -fsSL https://fnm.vercel.app/install | bash

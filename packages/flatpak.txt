@@ -1,0 +1,15 @@
+# ==============================================================================
+# Flatpak Packages
+# ==============================================================================
+# Packages installed via `flatpak install flathub`.
+# Flatpak comes pre-installed on Fedora Workstation.
+#
+# Format: one Flatpak application ID per line
+# ==============================================================================
+
+[productivity]
+md.obsidian.Obsidian
+
+[browser]
+app.zen_browser.zen
+io.github.ungoogled_software.ungoogled_chromium

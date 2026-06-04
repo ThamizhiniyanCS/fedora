@@ -1,0 +1,44 @@
+# ==============================================================================
+# VSCodium Extensions
+# ==============================================================================
+# Extension IDs installed via `codium --install-extension`.
+# VSCodium is bare-metal only — this file is skipped on WSL.
+# ==============================================================================
+
+[comments-and-formatting]
+aaron-bond.better-comments
+oderwat.indent-rainbow
+usernamehw.errorlens
+esbenp.prettier-vscode
+cardinal90.multi-cursor-case-preserve
+mrmlnc.vscode-duplicate
+
+[web-development]
+astro-build.astro-vscode
+bradlc.vscode-tailwindcss
+dsznajder.es7-react-js-snippets
+ritwickdey.liveserver
+dbaeumer.vscode-eslint
+wix.vscode-import-cost
+unifiedjs.vscode-mdx
+
+[python]
+ms-python.python
+ms-python.black-formatter
+charliermarsh.ruff
+
+[rust]
+rust-lang.rust-analyzer
+tamasfe.even-better-toml
+
+[dart]
+Dart-Code.flutter
+
+[git]
+donjayamanne.githistory
+
+[markdown]
+shd101wyy.markdown-preview-enhanced
+
+[security]
+snyk-security.snyk-vulnerability-scanner

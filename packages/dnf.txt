@@ -1,0 +1,51 @@
+# ==============================================================================
+# DNF Packages
+# ==============================================================================
+# Edit this file to add or remove packages installed via dnf.
+# - One package per line
+# - Lines starting with # are comments (ignored by the parser)
+# - [category] headers organize packages (ignored by the parser)
+# - Append "# bare-metal only" or "# wsl only" to restrict to an environment
+# ==============================================================================
+
+[git]
+git-delta
+
+[openssl]
+openssl
+openssl-devel
+
+[editor]
+neovim
+python3-neovim
+
+[terminal]
+kitty                              # bare-metal only
+fish
+bat
+fastfetch
+
+[cli-tools]
+fzf
+ripgrep
+fd-find
+jq
+zoxide
+xclip
+strace
+xdotool                            # bare-metal only
+
+[media]
+poppler
+GraphicsMagick
+GraphicsMagick-devel
+GraphicsMagick-perl
+vlc                                # bare-metal only
+flameshot                          # bare-metal only
+
+[desktop]
+gnome-session-xsession             # bare-metal only
+open-vm-tools-desktop              # bare-metal only
+
+[system]
+btop                               # wsl only

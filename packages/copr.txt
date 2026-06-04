@@ -1,0 +1,9 @@
+# ==============================================================================
+# COPR Repositories & Packages
+# ==============================================================================
+# Format: <copr_repo>    <package_name>
+# The COPR repo is enabled first, then the package is installed via dnf.
+# ==============================================================================
+
+dejan/lazygit       lazygit
+lihaohong/yazi      yazi
