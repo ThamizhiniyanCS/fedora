@@ -36,11 +36,12 @@ Run `./fedora.sh --info` for a full table. Here's the overview:
 | **Terminal** | kitty¹, fish, bat, fastfetch |
 | **CLI Tools** | fzf, ripgrep, fd, jq, zoxide, xclip, strace, xdotool¹, eza, yazi, lazygit, lazydocker |
 | **Media** | poppler, GraphicsMagick, VLC¹, flameshot¹ |
-| **Desktop** | open-vm-tools¹, dangerzone¹, Proton VPN¹ |
+| **Desktop** | open-vm-tools¹, dangerzone¹, Proton VPN¹, Burp Suite |
 | **Runtimes** | rustup, uv (Python), bun (JS), fnm (Node.js) |
 | **Shell** | fish (set as default), starship (prompt) |
 | **Multimedia** | Full ffmpeg, AMD/NVIDIA HW codecs¹ |
-| **Flatpak Apps** | Obsidian, Zen Browser, Ungoogled Chromium |
+| **Flatpak Apps** | Obsidian, Zen Browser, Ungoogled Chromium, Podman Desktop |
+| **Dev Tools** | C-development group, Tauri prerequisites, dbus-devel, pkgconf |
 | **VSCodium Ext.** | 22 extensions (Python, Rust, web dev, linting, etc.) |
 | **System** | btop² |
 

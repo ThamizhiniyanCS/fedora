@@ -8,46 +8,41 @@
 
 ## What Was Done
 
-Refactored `fedora.sh` (334 lines) and `fedora_wsl.sh` (252 lines) from monolithic scripts into a **data-driven, modular architecture**:
+Refactored `fedora.sh` and `fedora_wsl.sh` from monolithic scripts into a **data-driven, modular architecture** and subsequently fortified them for robust, non-interactive execution.
 
-### New Structure
+### Architecture Structure
 ```
 os-init-scripts/
-├── bootstrap.sh              # curl one-liner entry point, auto-detects WSL
-├── lib/helpers.sh             # Shared functions: logging, install wrappers, parsers, --info, summary
+├── bootstrap.sh               # curl one-liner entry point, auto-detects WSL
+├── lib/helpers.sh             # Shared functions: logging, keep_sudo_alive, install wrappers, parsers, --info, summary
 ├── packages/
-│   ├── dnf.txt                # 23 DNF packages in 7 [categories] with env tags
-│   ├── cargo.txt              # 2 cargo packages (eza, resvg)
-│   ├── copr.txt               # 2 COPR mappings (lazygit, yazi)
-│   ├── scripts.txt            # 6 curl-based installers (rustup, starship, uv, bun, fnm, lazydocker)
-│   └── catalog.sh             # PKG_DESC + PKG_URL associative arrays for all ~35 tools
+│   ├── dnf.txt                # DNF packages categorized (dev-tools, tauri, system, etc.) with env tags
+│   ├── cargo.txt              # Cargo packages (eza, resvg)
+│   ├── copr.txt               # COPR mappings (lazygit, yazi)
+│   ├── scripts.txt            # Script-based installers (rustup, starship, burpsuite, etc.)
+│   ├── flatpak.txt            # Flatpak packages (Podman Desktop, Obsidian, browsers)
+│   └── catalog.sh             # PKG_DESC + PKG_URL associative arrays for all tools
 ├── modules/
-│   ├── repos.sh               # External repo setup (gh, vscodium, dangerzone, protonvpn)
-│   ├── multimedia.sh          # Codecs, ffmpeg swap, AMD/NVIDIA HW drivers (bare-metal only)
-│   └── post_install.sh        # Fish shell default, ProtonVPN reminder, cleanup, summary
-├── fedora.sh                  # Thin orchestrator (ENV=bare-metal), supports --info
+│   ├── repos.sh               # External repo setup (gh, vscodium, dangerzone, protonvpn) - idempotent
+│   ├── multimedia.sh          # Codecs, ffmpeg swap, AMD/NVIDIA HW drivers (graceful failures)
+│   └── post_install.sh        # Fish shell default, dotfiles git bare repo setup, cleanup, summary
+├── fedora.sh                  # Thin orchestrator (ENV=bare-metal)
 ├── fedora_wsl.sh              # Thin orchestrator (ENV=wsl), skips multimedia
-├── PLAN.md                    # Implementation plan
-├── TASKS.md                   # Task tracker (14/15 done)
 └── CONTEXT.md                 # This file
 ```
 
-### Key Design Decisions
-1. **Text files over JSON** — `jq` isn't available on a fresh system
-2. **Option B (lean manifests + catalog)** — manifests are scannable (~30 lines), catalog provides queryable documentation
-3. **INI-style `[category]` headers** with `# bare-metal only` / `# wsl only` environment tags
-4. **`curl | sh` scripts kept as-is** (convenience over security)
-5. **Bootstrap via tarball download** — no git needed on fresh systems
-
-### Verification
-- All ~35 packages verified present across manifests/modules — zero missing vs original scripts
-- `--info` dry-run flag implemented in both orchestrators
+### Key Design Decisions & Improvements
+1. **Data-Driven Manifests** — Packages are managed via scannable text files (`dnf.txt`, `flatpak.txt`, etc.) parsed dynamically.
+2. **Catalog Metadata** — `catalog.sh` provides queryable documentation (`--info` dry-run mode).
+3. **Robust Non-Interactive Execution**:
+   - Implemented `keep_sudo_alive` background loop to prevent password timeouts during long installs.
+   - Added `--skip-unavailable` to bulk DNF installs and `|| true`/fallbacks for unstable RPM Fusion packages.
+   - Forced `-y` on all multimedia/repo commands and used `sudo chsh` to bypass interactive prompts.
+   - Added `|| true` to pipechains that use `set -e` to avoid sudden script aborts.
+   - Sourced Cargo env dynamically for same-session package installation.
+4. **Environment Tagging** — `# bare-metal only` / `# wsl only` inline tags filter packages per environment.
+5. **Dotfiles Automation** — Post-install automatically clones and configures a bare git repository for dotfiles, safely overwriting conflicts.
 
 ## Current State
 
-**14/15 tasks complete.** Remaining:
-- **T14** — Update project `README.md` (optional)
-
-## Files to Reference
-- `PLAN.md` — full implementation plan
-- `TASKS.md` — task tracker with progress
+The scripts are highly robust, modular, and fully tested against real-world execution hiccups (missing packages, interactive prompts, sudo timeouts).
