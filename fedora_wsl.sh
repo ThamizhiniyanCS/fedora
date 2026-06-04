@@ -75,6 +75,11 @@ install_flatpak_packages "$SCRIPT_DIR/packages/flatpak.txt"
 info "Skipping multimedia setup (not applicable in WSL)."
 
 # ==============================================================================
-# 8. Post-install configuration
+# 8. Nerd Fonts (CascadiaCode)
+# ==============================================================================
+source "$SCRIPT_DIR/modules/fonts.sh"
+
+# ==============================================================================
+# 9. Post-install configuration
 # ==============================================================================
 source "$SCRIPT_DIR/modules/post_install.sh"

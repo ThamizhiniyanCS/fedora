@@ -17,7 +17,7 @@ header "Setting up multimedia and codecs"
 
 # --- Multimedia group install ---
 info "Installing multimedia group packages..."
-sudo dnf group install --with-optional Multimedia --allowerasing
+sudo dnf group install --with-optional multimedia --allowerasing
 
 # --- Switch to full ffmpeg ---
 info "Swapping ffmpeg-free for full ffmpeg..."

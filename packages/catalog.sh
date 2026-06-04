@@ -40,7 +40,6 @@ declare -A PKG_DESC=(
   [ripgrep]="Recursively search directories for a regex pattern"
   [fd-find]="A simple, fast and user-friendly alternative to 'find'"
   [jq]="Command-line JSON processor"
-  [zoxide]="A smarter cd command — supports all major shells"
   [xclip]="Command line interface to the X11 clipboard"
   [strace]="Diagnostic, debugging and instructional userspace tracer for Linux"
   [xdotool]="Fake keyboard/mouse input, window management, and more"
@@ -62,6 +61,7 @@ declare -A PKG_DESC=(
 
   # --- system ---
   [btop]="A monitor of system resources"
+  [fuse]="Filesystem in Userspace — required for AppImage support"
 
   # --- flatpak ---
   [md.obsidian.Obsidian]="Private and flexible writing app that adapts to the way you think"
@@ -74,6 +74,9 @@ declare -A PKG_DESC=(
   [uv]="Extremely fast Python package and project manager"
   [bun]="Incredibly fast JavaScript runtime, bundler, and package manager"
   [fnm]="Fast and simple Node.js version manager, built in Rust"
+  [brave]="A hardened, Chromium-based browser with native ad-blocking, fingerprinting protection, and Tor integration by default"
+  [zoxide]="A smarter cd command — supports all major shells"
+  [rclone]="Command-line program to manage files on cloud storage"
 )
 
 declare -A PKG_URL=(
@@ -101,7 +104,6 @@ declare -A PKG_URL=(
   [ripgrep]="https://github.com/BurntSushi/ripgrep"
   [fd-find]="https://github.com/sharkdp/fd"
   [jq]="https://github.com/jqlang/jq"
-  [zoxide]="https://github.com/ajeetdsouza/zoxide"
   [xclip]="https://github.com/astrand/xclip"
   [strace]="https://github.com/strace/strace"
   [xdotool]="https://github.com/jordansissel/xdotool"
@@ -123,6 +125,7 @@ declare -A PKG_URL=(
 
   # --- system ---
   [btop]="https://github.com/aristocratos/btop"
+  [fuse]="https://github.com/AppImage/AppImageKit/wiki/FUSE"
 
   # --- flatpak ---
   [md.obsidian.Obsidian]="https://obsidian.md/"
@@ -135,4 +138,7 @@ declare -A PKG_URL=(
   [uv]="https://github.com/astral-sh/uv"
   [bun]="https://github.com/oven-sh/bun"
   [fnm]="https://github.com/Schniz/fnm"
+  [brave]="https://brave.com/linux/"
+  [zoxide]="https://github.com/ajeetdsouza/zoxide"
+  [rclone]="https://rclone.org/"
 )

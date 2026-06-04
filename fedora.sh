@@ -80,6 +80,11 @@ source "$SCRIPT_DIR/modules/multimedia.sh"
 install_vscodium_extensions "$SCRIPT_DIR/packages/vscodium_extensions.txt"
 
 # ==============================================================================
-# 9. Post-install configuration
+# 9. Nerd Fonts (CascadiaCode)
+# ==============================================================================
+source "$SCRIPT_DIR/modules/fonts.sh"
+
+# ==============================================================================
+# 10. Post-install configuration
 # ==============================================================================
 source "$SCRIPT_DIR/modules/post_install.sh"
