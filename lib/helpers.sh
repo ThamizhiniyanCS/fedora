@@ -37,7 +37,7 @@ install() {
   fi
 
   info "Installing: $*"
-  if sudo dnf install -y "$@"; then
+  if sudo dnf install -y --skip-unavailable "$@"; then
     success "Successfully installed: $*"
     SUCCEEDED_PACKAGES+=("$*")
   else

@@ -54,7 +54,6 @@ declare -A PKG_DESC=(
   [flameshot]="Powerful yet simple open-source screenshot software"
 
   # --- desktop ---
-  [gnome-session-xsession]="Adds desktop environment switcher to the login window"
   [open-vm-tools-desktop]="VMware open-vm-tools for desktop integration"
   [dangerzone]="Convert potentially dangerous documents to safe PDFs"
   [protonvpn]="Proton VPN client for Linux"
@@ -118,7 +117,6 @@ declare -A PKG_URL=(
   [flameshot]="https://flameshot.org/"
 
   # --- desktop ---
-  [gnome-session-xsession]=""
   [open-vm-tools-desktop]="https://github.com/vmware/open-vm-tools"
   [dangerzone]="https://github.com/freedomofpress/dangerzone"
   [protonvpn]="https://protonvpn.com/support/official-linux-vpn-fedora/"

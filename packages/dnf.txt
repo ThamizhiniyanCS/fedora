@@ -44,7 +44,6 @@ vlc                                # bare-metal only
 flameshot                          # bare-metal only
 
 [desktop]
-gnome-session-xsession             # bare-metal only
 open-vm-tools-desktop              # bare-metal only
 
 [system]
