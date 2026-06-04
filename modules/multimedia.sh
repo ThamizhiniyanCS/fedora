@@ -29,8 +29,8 @@ sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=Pack
 
 # --- Hardware codecs: AMD (mesa) ---
 info "Installing AMD hardware codec drivers (mesa)..."
-sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld || info "Failed to swap mesa-va-drivers. Skipping due to RPM Fusion version mismatch."
+sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld || info "Failed to swap mesa-vdpau-drivers. Skipping."
 
 # --- Hardware codecs: NVIDIA ---
 info "Installing NVIDIA hardware codec drivers..."
