@@ -16,7 +16,7 @@ header "Post-install configuration"
 # --- Set default shell to fish ---
 if command -v fish &>/dev/null; then
   info "Setting default shell to fish..."
-  chsh -s "$(which fish)"
+  sudo chsh -s "$(which fish)" "$USER"
   success "Default shell set to fish."
 else
   error "Fish shell not found — skipping default shell change."

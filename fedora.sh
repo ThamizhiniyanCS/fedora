@@ -31,6 +31,7 @@ fi
 # Setup
 # ==============================================================================
 header "Fedora Bare-Metal Setup"
+keep_sudo_alive
 
 info "Creating temp directory for downloads..."
 mkdir -p /tmp/fedora-install-script

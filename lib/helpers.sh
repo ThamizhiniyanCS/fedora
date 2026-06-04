@@ -26,6 +26,17 @@ success() { echo -e "${GREEN}[+]${NC} $1"; }
 header()  { echo -e "\n${BLUE}${BOLD}=== $1 ===${NC}\n"; }
 
 # ==============================================================================
+# Sudo Keep-Alive
+# ==============================================================================
+
+# Ask for the administrator password upfront and keep the timestamp alive
+keep_sudo_alive() {
+  info "Prompting for sudo password (will be kept alive until script finishes)..."
+  sudo -v
+  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+}
+
+# ==============================================================================
 # Package Installation
 # ==============================================================================
 
