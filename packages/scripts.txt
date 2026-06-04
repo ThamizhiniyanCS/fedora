@@ -37,3 +37,6 @@ curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh 
 
 [rclone]
 sudo -v ; curl https://rclone.org/install.sh | sudo bash
+
+[burpsuite]
+wget -qO burpsuite_installer.sh "https://portswigger.net/burp/releases/download?product=desktop&type=Linux" && chmod +x burpsuite_installer.sh && ./burpsuite_installer.sh

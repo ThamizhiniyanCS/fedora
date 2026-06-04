@@ -54,7 +54,7 @@ dotfiles() {
 }
 
 info "Checking out dotfiles (overwriting conflicting files if necessary)..."
-dotfiles checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -I {} rm -rf {}
+dotfiles checkout 2>&1 | grep -E "\s+\." | awk {'print $1'} | xargs -I {} rm -rf {} || true
 dotfiles checkout
 
 info "Configuring dotfiles repo to ignore untracked files..."

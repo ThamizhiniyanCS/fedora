@@ -77,6 +77,7 @@ declare -A PKG_DESC=(
   [brave]="A hardened, Chromium-based browser with native ad-blocking, fingerprinting protection, and Tor integration by default"
   [zoxide]="A smarter cd command — supports all major shells"
   [rclone]="Command-line program to manage files on cloud storage"
+  [burpsuite]="An integrated platform for performing security testing of web applications"
 )
 
 declare -A PKG_URL=(
@@ -141,4 +142,5 @@ declare -A PKG_URL=(
   [brave]="https://brave.com/linux/"
   [zoxide]="https://github.com/ajeetdsouza/zoxide"
   [rclone]="https://rclone.org/"
+  [burpsuite]="https://portswigger.net/burp"
 )
