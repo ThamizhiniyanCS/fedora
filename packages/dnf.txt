@@ -51,3 +51,17 @@ open-vm-tools-desktop              # bare-metal only
 fuse
 fuse-libs
 btop                               # wsl only
+
+[dev-tools]
+@c-development
+dbus-devel
+pkgconf-pkg-config
+
+[tauri]
+webkit2gtk4.1-devel
+curl
+wget
+file
+libappindicator-gtk3-devel
+librsvg2-devel
+libxdo-devel
