@@ -57,6 +57,7 @@ declare -A PKG_DESC=(
   [open-vm-tools-desktop]="VMware open-vm-tools for desktop integration"
   [dangerzone]="Convert potentially dangerous documents to safe PDFs"
   [protonvpn]="Proton VPN client for Linux"
+  [gnome-tweaks]="Customize advanced GNOME options"
 
   # --- system ---
   [btop]="A monitor of system resources"
@@ -67,6 +68,9 @@ declare -A PKG_DESC=(
   [app.zen_browser.zen]="Privacy-focused browser based on Firefox with a beautiful UI"
   [io.github.ungoogled_software.ungoogled_chromium]="Chromium with Google services and dependencies removed"
   [io.podman_desktop.PodmanDesktop]="A graphical tool for developing on containers and Kubernetes"
+  [org.gnome.Extensions]="Manage GNOME Shell extensions"
+  [io.ente.auth]="End-to-end encrypted 2FA authenticator app"
+  [org.telegram.desktop]="Telegram Desktop messaging app"
 
   # --- script-based ---
   [rustup]="Installer for the Rust programming language toolchain"
@@ -78,6 +82,9 @@ declare -A PKG_DESC=(
   [zoxide]="A smarter cd command — supports all major shells"
   [rclone]="Command-line program to manage files on cloud storage"
   [burpsuite]="An integrated platform for performing security testing of web applications"
+  [tree-sitter-cli]="CLI tool for developing, testing, and using tree-sitter parsers"
+  [tectonic]="Modern, complete, self-contained TeX/LaTeX engine powered by XeTeX and TeX Live"
+  [mmdc]="Mermaid CLI to compile Mermaid definitions into images"
 )
 
 declare -A PKG_URL=(
@@ -122,6 +129,7 @@ declare -A PKG_URL=(
   [open-vm-tools-desktop]="https://github.com/vmware/open-vm-tools"
   [dangerzone]="https://github.com/freedomofpress/dangerzone"
   [protonvpn]="https://protonvpn.com/support/official-linux-vpn-fedora/"
+  [gnome-tweaks]="https://gitlab.gnome.org/GNOME/gnome-tweaks"
 
   # --- system ---
   [btop]="https://github.com/aristocratos/btop"
@@ -132,6 +140,9 @@ declare -A PKG_URL=(
   [app.zen_browser.zen]="https://zen-browser.app/"
   [io.github.ungoogled_software.ungoogled_chromium]="https://github.com/ungoogled-software/ungoogled-chromium"
   [io.podman_desktop.PodmanDesktop]="https://podman-desktop.io/downloads"
+  [org.gnome.Extensions]="https://gitlab.gnome.org/GNOME/gnome-shell-extensions"
+  [io.ente.auth]="https://ente.com/auth"
+  [org.telegram.desktop]="https://telegram.org/"
 
   # --- script-based ---
   [rustup]="https://rustup.rs/"
@@ -143,4 +154,7 @@ declare -A PKG_URL=(
   [zoxide]="https://github.com/ajeetdsouza/zoxide"
   [rclone]="https://rclone.org/"
   [burpsuite]="https://portswigger.net/burp"
+  [tree-sitter-cli]="https://github.com/tree-sitter/tree-sitter"
+  [tectonic]="https://tectonic-typesetting.github.io/en-US/"
+  [mmdc]="https://github.com/mermaid-js/mermaid-cli"
 )

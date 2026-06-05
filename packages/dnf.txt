@@ -45,11 +45,13 @@ flameshot                          # bare-metal only
 
 [desktop]
 open-vm-tools-desktop              # bare-metal only
+gnome-tweaks                       # bare-metal only
+
 
 [system]
 fuse
 fuse-libs
-btop                               # wsl only
+btop
 
 [dev-tools]
 @c-development

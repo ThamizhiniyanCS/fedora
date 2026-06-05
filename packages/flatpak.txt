@@ -16,3 +16,14 @@ io.podman_desktop.PodmanDesktop
 [browser]
 app.zen_browser.zen
 io.github.ungoogled_software.ungoogled_chromium
+
+[desktop]
+org.gnome.Extensions
+
+[security]
+io.ente.auth
+
+[social]
+org.telegram.desktop
+
+

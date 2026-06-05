@@ -348,6 +348,19 @@ print_info() {
     fi
   done < "$script_dir/packages/scripts.txt"
 
+  # Interactive script-based installs
+  if [[ -f "$script_dir/packages/interactive_scripts.txt" ]]; then
+    while IFS= read -r line; do
+      [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+      if [[ "$line" =~ ^\[(.+)\]$ ]]; then
+        local name="${BASH_REMATCH[1]}"
+        local desc="${PKG_DESC[$name]:-}"
+        printf "  %-25s %-10s %s\n" "$name" "script (int)" "$desc"
+      fi
+    done < "$script_dir/packages/interactive_scripts.txt"
+  fi
+
+
   # Flatpak packages
   while IFS= read -r line; do
     [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue

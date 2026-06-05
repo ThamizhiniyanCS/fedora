@@ -1,0 +1,9 @@
+# ==============================================================================
+# Interactive Script-based Installers
+# ==============================================================================
+# Tools that require user GUI/terminal interaction to complete.
+# These are run at the very end of the installation process.
+# ==============================================================================
+
+[burpsuite]
+wget -O burpsuite_installer.sh "https://portswigger.net/burp/releases/download?product=desktop&type=Linux" && chmod +x burpsuite_installer.sh && ./burpsuite_installer.sh

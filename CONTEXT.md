@@ -45,4 +45,13 @@ os-init-scripts/
 
 ## Current State
 
-The scripts are highly robust, modular, and fully tested against real-world execution hiccups (missing packages, interactive prompts, sudo timeouts).
+The scripts are highly robust, modular, and fully tested against real-world execution hiccups. In the latest session, we:
+- Added `gnome-tweaks` to DNF packages (bare-metal only) and enabled `btop` to be installed in both environments.
+- Added `org.gnome.Extensions`, `io.ente.auth`, and `org.telegram.desktop` Flatpak app IDs.
+- Added `tree-sitter-cli`, `tectonic` (with conditional directory check), and `mmdc` script installers.
+- Integrated `rust-analyzer` component install directly into the `rustup` installer script command.
+- Optimized `burpsuite` installation to show download progress by removing `-q` from `wget`.
+- Configured `starship` installer to run unattended/non-interactively with `-y`.
+- Moved interactive installers (e.g. `burpsuite`) to a separate `interactive_scripts.txt` manifest run at the very end of the installation process (after dotfiles configuration).
+- Documented all new tools and packages in the `catalog.sh` registry.
+
