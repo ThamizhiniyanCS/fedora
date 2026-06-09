@@ -198,7 +198,7 @@ while IFS= read -r line; do
   fi
 
   # Run per-container manifest if it exists
-  local manifest="$DISTROBOX_DIR/${name}.txt"
+  manifest="$DISTROBOX_DIR/${name}.txt"
   if [[ -f "$manifest" ]]; then
     info "Processing manifest for container '$name'..."
     setup_distrobox_container "$name" "$manifest"
