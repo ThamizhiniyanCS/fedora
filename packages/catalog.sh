@@ -62,6 +62,7 @@ declare -A PKG_DESC=(
   # --- system ---
   [btop]="A monitor of system resources"
   [fuse]="Filesystem in Userspace — required for AppImage support"
+  [podman]="Tool for managing OCI containers and pods"
 
   # --- flatpak ---
   [md.obsidian.Obsidian]="Private and flexible writing app that adapts to the way you think"
@@ -71,6 +72,7 @@ declare -A PKG_DESC=(
   [org.gnome.Extensions]="Manage GNOME Shell extensions"
   [io.ente.auth]="End-to-end encrypted 2FA authenticator app"
   [org.telegram.desktop]="Telegram Desktop messaging app"
+  [org.qbittorrent.qBittorrent]="Free and open-source BitTorrent client"
 
   # --- script-based ---
   [rustup]="Installer for the Rust programming language toolchain"
@@ -85,6 +87,7 @@ declare -A PKG_DESC=(
   [tree-sitter-cli]="CLI tool for developing, testing, and using tree-sitter parsers"
   [tectonic]="Modern, complete, self-contained TeX/LaTeX engine powered by XeTeX and TeX Live"
   [mmdc]="Mermaid CLI to compile Mermaid definitions into images"
+  [distrobox]="Use any Linux distribution inside your terminal"
 )
 
 declare -A PKG_URL=(
@@ -134,6 +137,7 @@ declare -A PKG_URL=(
   # --- system ---
   [btop]="https://github.com/aristocratos/btop"
   [fuse]="https://github.com/AppImage/AppImageKit/wiki/FUSE"
+  [podman]="https://podman.io/"
 
   # --- flatpak ---
   [md.obsidian.Obsidian]="https://obsidian.md/"
@@ -143,6 +147,7 @@ declare -A PKG_URL=(
   [org.gnome.Extensions]="https://gitlab.gnome.org/GNOME/gnome-shell-extensions"
   [io.ente.auth]="https://ente.com/auth"
   [org.telegram.desktop]="https://telegram.org/"
+  [org.qbittorrent.qBittorrent]="https://www.qbittorrent.org/"
 
   # --- script-based ---
   [rustup]="https://rustup.rs/"
@@ -157,4 +162,5 @@ declare -A PKG_URL=(
   [tree-sitter-cli]="https://github.com/tree-sitter/tree-sitter"
   [tectonic]="https://tectonic-typesetting.github.io/en-US/"
   [mmdc]="https://github.com/mermaid-js/mermaid-cli"
+  [distrobox]="https://distrobox.it/"
 )

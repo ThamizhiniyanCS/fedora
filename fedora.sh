@@ -76,16 +76,26 @@ install_flatpak_packages "$SCRIPT_DIR/packages/flatpak.txt"
 source "$SCRIPT_DIR/modules/multimedia.sh"
 
 # ==============================================================================
-# 8. VSCodium extensions (bare-metal only)
+# 8. Virtualization & Nested Virtualization (bare-metal only)
+# ==============================================================================
+source "$SCRIPT_DIR/modules/virtualization.sh"
+
+# ==============================================================================
+# 9. VSCodium extensions (bare-metal only)
 # ==============================================================================
 install_vscodium_extensions "$SCRIPT_DIR/packages/vscodium_extensions.txt"
 
 # ==============================================================================
-# 9. Nerd Fonts (CascadiaCode)
+# 10. Nerd Fonts (CascadiaCode)
 # ==============================================================================
 source "$SCRIPT_DIR/modules/fonts.sh"
 
 # ==============================================================================
-# 10. Post-install configuration
+# 11. Distrobox containers (create, provision, export, forward host binaries)
+# ==============================================================================
+source "$SCRIPT_DIR/modules/distrobox.sh"
+
+# ==============================================================================
+# 12. Post-install configuration
 # ==============================================================================
 source "$SCRIPT_DIR/modules/post_install.sh"

@@ -1,0 +1,46 @@
+# ==============================================================================
+# Distrobox: Ubuntu Container Manifest
+# ==============================================================================
+# Per-container setup for the 'ubuntu' distrobox.
+#
+# Sections:
+#   [pkg-manager]    — The install command prefix (next line)
+#   [packages]       — Package names, bulk-installed with pkg-manager
+#   [script:name]    — Script-based installer (next line is the shell command)
+#   [export-app]     — GUI apps exported to host via distrobox-export --app
+#   [export-bin]     — Binaries exported to host via distrobox-export --bin
+# ==============================================================================
+
+[pkg-manager]
+sudo apt-get install -y
+
+[packages]
+wget
+gpg
+ca-certificates
+curl
+git
+fzf
+ripgrep
+fd-find
+bat
+jq
+neovim
+zoxide
+git-delta
+eza
+
+[script:debian-shims]
+# Create standard command aliases/symlinks for Debian-specific naming conventions
+sudo ln -sf /usr/bin/fdfind /usr/local/bin/fd
+sudo ln -sf /usr/bin/batcat /usr/local/bin/bat
+
+[script:starship]
+# Install starship natively in the container for prompt responsiveness
+curl -sS https://starship.rs/install.sh | sudo sh -s -- -y
+
+[script:signal-desktop]
+wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null && wget -O- https://updates.signal.org/static/desktop/apt/signal-desktop.sources | sudo tee /etc/apt/sources.list.d/signal-desktop.sources > /dev/null && sudo apt update && sudo apt install -y signal-desktop
+
+[export-app]
+signal-desktop

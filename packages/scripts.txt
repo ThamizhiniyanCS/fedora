@@ -47,3 +47,6 @@ if [ ! -d "$HOME/.local/bin" ]; then mkdir -p "$HOME/.local/bin"; fi && curl --p
 [rclone]
 sudo -v ; curl https://rclone.org/install.sh | sudo bash
 
+[distrobox]
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+

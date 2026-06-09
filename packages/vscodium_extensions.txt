@@ -26,6 +26,7 @@ unifiedjs.vscode-mdx
 ms-python.python
 ms-python.black-formatter
 charliermarsh.ruff
+ms-toolsai.jupyter
 
 [rust]
 rust-lang.rust-analyzer

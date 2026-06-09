@@ -35,3 +35,4 @@ sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld || info "Failed
 # --- Hardware codecs: NVIDIA ---
 info "Installing NVIDIA hardware codec drivers..."
 install libva-nvidia-driver.{i686,x86_64}
+

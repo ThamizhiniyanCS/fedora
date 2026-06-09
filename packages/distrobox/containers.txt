@@ -1,0 +1,12 @@
+# ==============================================================================
+# Distrobox Container Definitions
+# ==============================================================================
+# Each line defines a container to create.
+#
+# Format: <name>  <image>
+#
+# A matching <name>.txt file in this directory provides the per-container
+# manifest (packages, scripts, exports). See ubuntu.txt for an example.
+# ==============================================================================
+
+ubuntu       ubuntu:latest

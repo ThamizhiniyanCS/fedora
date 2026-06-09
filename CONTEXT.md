@@ -46,12 +46,14 @@ os-init-scripts/
 ## Current State
 
 The scripts are highly robust, modular, and fully tested against real-world execution hiccups. In the latest session, we:
-- Added `gnome-tweaks` to DNF packages (bare-metal only) and enabled `btop` to be installed in both environments.
-- Added `org.gnome.Extensions`, `io.ente.auth`, and `org.telegram.desktop` Flatpak app IDs.
-- Added `tree-sitter-cli`, `tectonic` (with conditional directory check), and `mmdc` script installers.
-- Integrated `rust-analyzer` component install directly into the `rustup` installer script command.
-- Optimized `burpsuite` installation to show download progress by removing `-q` from `wget`.
-- Configured `starship` installer to run unattended/non-interactively with `-y`.
-- Moved interactive installers (e.g. `burpsuite`) to a separate `interactive_scripts.txt` manifest run at the very end of the installation process (after dotfiles configuration).
-- Documented all new tools and packages in the `catalog.sh` registry.
+- Added `org.qbittorrent.qBittorrent` to the Flatpak manifest, `ms-toolsai.jupyter` to VSCodium extensions, and `podman` to the DNF packages.
+- Implemented virtualization and nested virtualization setup for bare-metal in `modules/virtualization.sh` (sourced in `fedora.sh`), supporting AMD/Intel CPUs dynamically.
+- Built a **data-driven Distrobox integration system** in `modules/distrobox.sh`:
+  - `packages/distrobox/containers.txt` — Defines containers (name + image).
+  - `packages/distrobox/host_forward.txt` — Host integration binaries (like `flatpak`, `podman`, `systemctl`, `xclip`, `xdg-open`) to symlink into containers via `distrobox-host-exec`.
+  - `packages/distrobox/<name>.txt` — Per-container manifests with sections: `[pkg-manager]`, `[packages]`, `[script:name]`, `[export-app]`, `[export-bin]`. Filesystem-sensitive tools (`eza`, `bat`, `rg`, `fd`, `fzf`, `nvim`, `jq`, `zoxide`) and shell prompt helpers (`starship`) are installed natively inside the container here to ensure correct filesystem access.
+  - The module creates containers idempotently, installs packages/scripts inside them, exports GUI apps and binaries to the host, and forwards host integration binaries into containers.
+  - Initial setup: Ubuntu container with Signal Desktop installed and exported as a GUI app to the host.
+- Removed the hardcoded distrobox creation from `post_install.sh` in favor of the new manifest system.
+- Registered all new packages in `catalog.sh`.
 

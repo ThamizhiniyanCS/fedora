@@ -81,6 +81,11 @@ info "Skipping multimedia setup (not applicable in WSL)."
 source "$SCRIPT_DIR/modules/fonts.sh"
 
 # ==============================================================================
-# 9. Post-install configuration
+# 9. Distrobox containers (create, provision, export, forward host binaries)
+# ==============================================================================
+source "$SCRIPT_DIR/modules/distrobox.sh"
+
+# ==============================================================================
+# 10. Post-install configuration
 # ==============================================================================
 source "$SCRIPT_DIR/modules/post_install.sh"

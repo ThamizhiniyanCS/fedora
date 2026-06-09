@@ -1,0 +1,18 @@
+# ==============================================================================
+# Host Binary Forwarding
+# ==============================================================================
+# Host binaries to make available inside ALL distrobox containers via
+# distrobox-host-exec symlinks.
+#
+# Only needed for system-level binaries (e.g. /usr/bin/*) installed via DNF.
+# Tools installed to $HOME (~/.cargo/bin, ~/.local/bin, etc.) are already
+# accessible because distrobox shares the home directory.
+#
+# Format: one binary name per line (the actual command name, not the package name)
+# ==============================================================================
+
+xclip
+xdg-open
+flatpak
+podman
+systemctl

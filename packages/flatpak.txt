@@ -26,4 +26,6 @@ io.ente.auth
 [social]
 org.telegram.desktop
 
+[internet]
+org.qbittorrent.qBittorrent
 
