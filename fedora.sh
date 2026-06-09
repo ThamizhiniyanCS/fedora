@@ -9,7 +9,7 @@
 #   ./fedora.sh --info    # Preview what will be installed (dry-run)
 #
 # Bootstrap on a fresh system (no git required):
-#   curl -sSf https://raw.githubusercontent.com/ThamizhiniyanCS/os-init-scripts/main/bootstrap.sh | bash
+#   curl -sSf https://raw.githubusercontent.com/ThamizhiniyanCS/fedora/main/bootstrap.sh | bash
 # ==============================================================================
 
 set -euo pipefail
@@ -21,8 +21,11 @@ ENV="bare-metal"
 source "$SCRIPT_DIR/lib/helpers.sh"
 source "$SCRIPT_DIR/packages/catalog.sh"
 
+# --- Parse Command-Line Arguments ---
+parse_execution_args "$@"
+
 # --- Handle --info flag (dry-run) ---
-if [[ "${1:-}" == "--info" ]]; then
+if [[ "$INFO_MODE" == "true" ]]; then
   print_info "$ENV" "$SCRIPT_DIR"
   exit 0
 fi
@@ -43,59 +46,83 @@ sudo dnf check-update || true  # exit code 100 = updates available (not an error
 # ==============================================================================
 # 1. External Repositories (GitHub CLI, VSCodium, DangerZone, Proton VPN)
 # ==============================================================================
-source "$SCRIPT_DIR/modules/repos.sh"
+if should_run_step "repos" 1 "External Repositories"; then
+  source "$SCRIPT_DIR/modules/repos.sh"
+fi
 
 # ==============================================================================
 # 2. Script-based installs (rustup, starship, uv, bun, fnm, lazydocker)
 # ==============================================================================
-install_scripts "$SCRIPT_DIR/packages/scripts.txt"
+if should_run_step "scripts" 2 "Script-based Installs"; then
+  install_scripts "$SCRIPT_DIR/packages/scripts.txt"
+fi
 
 # ==============================================================================
 # 3. COPR packages (lazygit, yazi)
 # ==============================================================================
-install_copr_packages "$SCRIPT_DIR/packages/copr.txt"
+if should_run_step "copr" 3 "COPR Repositories"; then
+  install_copr_packages "$SCRIPT_DIR/packages/copr.txt"
+fi
 
 # ==============================================================================
 # 4. DNF packages (bulk install)
 # ==============================================================================
-install_from_manifest "$SCRIPT_DIR/packages/dnf.txt" "$ENV"
+if should_run_step "dnf" 4 "DNF Packages"; then
+  install_from_manifest "$SCRIPT_DIR/packages/dnf.txt" "$ENV"
+fi
 
 # ==============================================================================
 # 5. Cargo packages (eza, resvg)
 # ==============================================================================
-install_cargo_packages "$SCRIPT_DIR/packages/cargo.txt"
+if should_run_step "cargo" 5 "Cargo Packages"; then
+  install_cargo_packages "$SCRIPT_DIR/packages/cargo.txt"
+fi
 
 # ==============================================================================
 # 6. Flatpak packages (Obsidian, Zen Browser, Ungoogled Chromium)
 # ==============================================================================
-install_flatpak_packages "$SCRIPT_DIR/packages/flatpak.txt"
+if should_run_step "flatpak" 6 "Flatpak Packages"; then
+  install_flatpak_packages "$SCRIPT_DIR/packages/flatpak.txt"
+fi
 
 # ==============================================================================
 # 7. Multimedia & codecs
 # ==============================================================================
-source "$SCRIPT_DIR/modules/multimedia.sh"
+if should_run_step "multimedia" 7 "Multimedia & Codecs"; then
+  source "$SCRIPT_DIR/modules/multimedia.sh"
+fi
 
 # ==============================================================================
 # 8. Virtualization & Nested Virtualization (bare-metal only)
 # ==============================================================================
-source "$SCRIPT_DIR/modules/virtualization.sh"
+if should_run_step "virtualization" 8 "Virtualization & Nested Virtualization"; then
+  source "$SCRIPT_DIR/modules/virtualization.sh"
+fi
 
 # ==============================================================================
 # 9. VSCodium extensions (bare-metal only)
 # ==============================================================================
-install_vscodium_extensions "$SCRIPT_DIR/packages/vscodium_extensions.txt"
+if should_run_step "vscodium" 9 "VSCodium Extensions"; then
+  install_vscodium_extensions "$SCRIPT_DIR/packages/vscodium_extensions.txt"
+fi
 
 # ==============================================================================
 # 10. Nerd Fonts (CascadiaCode)
 # ==============================================================================
-source "$SCRIPT_DIR/modules/fonts.sh"
+if should_run_step "fonts" 10 "Nerd Fonts"; then
+  source "$SCRIPT_DIR/modules/fonts.sh"
+fi
 
 # ==============================================================================
 # 11. Distrobox containers (create, provision, export, forward host binaries)
 # ==============================================================================
-source "$SCRIPT_DIR/modules/distrobox.sh"
+if should_run_step "distrobox" 11 "Distrobox Containers"; then
+  source "$SCRIPT_DIR/modules/distrobox.sh"
+fi
 
 # ==============================================================================
 # 12. Post-install configuration
 # ==============================================================================
-source "$SCRIPT_DIR/modules/post_install.sh"
+if should_run_step "post_install" 12 "Post-install Configuration"; then
+  source "$SCRIPT_DIR/modules/post_install.sh"
+fi

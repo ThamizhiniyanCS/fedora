@@ -4,7 +4,7 @@
 
 ## Project
 
-**Repository:** `os-init-scripts` — Bash scripts to bootstrap a fresh Fedora (bare-metal and WSL) installation with all preferred tools and configuration.
+**Repository:** `fedora` — Bash scripts to bootstrap a fresh Fedora (bare-metal and WSL) installation with all preferred tools and configuration.
 
 ## What Was Done
 
@@ -12,7 +12,7 @@ Refactored `fedora.sh` and `fedora_wsl.sh` from monolithic scripts into a **data
 
 ### Architecture Structure
 ```
-os-init-scripts/
+fedora/
 ├── bootstrap.sh               # curl one-liner entry point, auto-detects WSL
 ├── lib/helpers.sh             # Shared functions: logging, keep_sudo_alive, install wrappers, parsers, --info, summary
 ├── packages/
@@ -55,5 +55,8 @@ The scripts are highly robust, modular, and fully tested against real-world exec
   - The module creates containers idempotently, installs packages/scripts inside them, exports GUI apps and binaries to the host, and forwards host integration binaries into containers.
   - Initial setup: Ubuntu container with Signal Desktop installed and exported as a GUI app to the host.
 - Removed the hardcoded distrobox creation from `post_install.sh` in favor of the new manifest system.
+- Implemented **selective step execution and resuming control** in `lib/helpers.sh`:
+  - Added support for `--list`, `--from <step>`, `--only <steps>`, and `--exclude <steps>` command-line flags.
+  - Wrapped all installation steps in `fedora.sh` (12 steps) and `fedora_wsl.sh` (10 steps) in `should_run_step` conditional blocks.
 - Registered all new packages in `catalog.sh`.
 

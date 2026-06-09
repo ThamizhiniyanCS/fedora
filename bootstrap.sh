@@ -4,7 +4,7 @@
 # ==============================================================================
 #
 # Usage (one-liner on a fresh system):
-#   curl -sSf https://raw.githubusercontent.com/ThamizhiniyanCS/os-init-scripts/main/bootstrap.sh | bash
+#   curl -sSf https://raw.githubusercontent.com/ThamizhiniyanCS/fedora/main/bootstrap.sh | bash
 #
 # What it does:
 #   1. Downloads the repo as a tarball (no git required)
@@ -14,12 +14,12 @@
 
 set -euo pipefail
 
-REPO="ThamizhiniyanCS/os-init-scripts"
+REPO="ThamizhiniyanCS/fedora"
 BRANCH="main"
 DOWNLOAD_DIR="/tmp"
-DIR_NAME="os-init-scripts-${BRANCH}"
+DIR_NAME="fedora-${BRANCH}"
 
-echo "[!] Downloading os-init-scripts..."
+echo "[!] Downloading fedora..."
 curl -sL "https://github.com/${REPO}/archive/${BRANCH}.tar.gz" | tar xz -C "$DOWNLOAD_DIR"
 
 cd "${DOWNLOAD_DIR}/${DIR_NAME}"
@@ -28,9 +28,9 @@ cd "${DOWNLOAD_DIR}/${DIR_NAME}"
 if grep -qi microsoft /proc/version 2>/dev/null; then
   echo "[!] WSL detected — running fedora_wsl.sh"
   chmod +x fedora_wsl.sh
-  ./fedora_wsl.sh
+  ./fedora_wsl.sh "$@"
 else
   echo "[!] Bare-metal detected — running fedora.sh"
   chmod +x fedora.sh
-  ./fedora.sh
+  ./fedora.sh "$@"
 fi

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# Shared helper functions for os-init-scripts
+# Shared helper functions for fedora
 # Sourced by fedora.sh and fedora_wsl.sh
 # ==============================================================================
 
@@ -421,3 +421,152 @@ print_summary() {
     success "All packages installed successfully!"
   fi
 }
+
+# ==============================================================================
+# Execution Control (Selective Step Execution)
+# ==============================================================================
+
+START_STEP=""
+ONLY_STEPS=""
+EXCLUDE_STEPS=""
+HAS_REACHED_START=false
+INFO_MODE=false
+
+list_steps() {
+  header "Available Steps for Environment: $ENV"
+  if [[ "$ENV" == "bare-metal" ]]; then
+    echo "  1. repos          - External Repositories"
+    echo "  2. scripts        - Script-based Installs"
+    echo "  3. copr           - COPR Repositories"
+    echo "  4. dnf            - DNF Packages"
+    echo "  5. cargo          - Cargo Packages"
+    echo "  6. flatpak        - Flatpak Packages"
+    echo "  7. multimedia     - Multimedia & Codecs"
+    echo "  8. virtualization - Virtualization & Nested Virtualization"
+    echo "  9. vscodium       - VSCodium Extensions"
+    echo "  10. fonts         - Nerd Fonts"
+    echo "  11. distrobox     - Distrobox Containers"
+    echo "  12. post_install  - Post-install Configuration"
+  else
+    echo "  1. repos          - External Repositories"
+    echo "  2. scripts        - Script-based Installs"
+    echo "  3. copr           - COPR Repositories"
+    echo "  4. dnf            - DNF Packages"
+    echo "  5. cargo          - Cargo Packages"
+    echo "  6. flatpak        - Flatpak Packages"
+    echo "  7. multimedia     - Multimedia & Codecs (skipped)"
+    echo "  8. fonts          - Nerd Fonts"
+    echo "  9. distrobox      - Distrobox Containers"
+    echo "  10. post_install  - Post-install Configuration"
+  fi
+  echo ""
+}
+
+show_help() {
+  echo "Usage: $(basename "$0") [options]"
+  echo ""
+  echo "Options:"
+  echo "  --info            Preview what will be installed (dry-run)"
+  echo "  --from <step>     Start execution from the specified step name or number"
+  echo "  --only <steps>    Comma-separated list of step names/numbers to execute"
+  echo "  --exclude <steps> Comma-separated list of step names/numbers to skip"
+  echo "  --list            List all available steps for this environment and exit"
+  echo "  -h, --help        Show this help message and exit"
+  echo ""
+  list_steps
+}
+
+parse_execution_args() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --from)
+        if [[ -z "${2:-}" ]]; then
+          error "--from option requires a step name or number."
+          exit 1
+        fi
+        START_STEP="$2"
+        shift 2
+        ;;
+      --only)
+        if [[ -z "${2:-}" ]]; then
+          error "--only option requires a comma-separated list of steps."
+          exit 1
+        fi
+        ONLY_STEPS=",$2,"
+        shift 2
+        ;;
+      --exclude)
+        if [[ -z "${2:-}" ]]; then
+          error "--exclude option requires a comma-separated list of steps."
+          exit 1
+        fi
+        EXCLUDE_STEPS=",$2,"
+        shift 2
+        ;;
+      --list)
+        list_steps
+        exit 0
+        ;;
+      --info)
+        INFO_MODE=true
+        shift
+        ;;
+      -h|--help)
+        show_help
+        exit 0
+        ;;
+      *)
+        error "Unknown argument: $1"
+        show_help
+        exit 1
+        ;;
+    esac
+  done
+}
+
+should_run_step() {
+  local step_id="$1"
+  local step_num="$2"
+  local step_desc="$3"
+
+  # 1. Check if step is explicitly excluded
+  if [[ -n "$EXCLUDE_STEPS" ]]; then
+    if [[ "$EXCLUDE_STEPS" == *",$step_id,"* || "$EXCLUDE_STEPS" == *",$step_num,"* ]]; then
+      info "Skipping step $step_num ($step_id): $step_desc (Excluded)"
+      return 1
+    fi
+  fi
+
+  # 2. Check if we are running ONLY specific steps
+  if [[ -n "$ONLY_STEPS" ]]; then
+    if [[ "$ONLY_STEPS" == *",$step_id,"* || "$ONLY_STEPS" == *",$step_num,"* ]]; then
+      info "Executing step $step_num ($step_id): $step_desc..."
+      return 0
+    else
+      return 1
+    fi
+  fi
+
+  # 3. Check if we are starting from a specific step
+  if [[ -n "$START_STEP" ]]; then
+    if [[ "$HAS_REACHED_START" == "true" ]]; then
+      info "Executing step $step_num ($step_id): $step_desc..."
+      return 0
+    fi
+
+    # Check if this step matches starting step (by ID or number)
+    if [[ "$START_STEP" == "$step_id" || "$START_STEP" == "$step_num" ]]; then
+      HAS_REACHED_START=true
+      info "Starting execution from step $step_num ($step_id): $step_desc..."
+      return 0
+    else
+      info "Skipping step $step_num ($step_id): $step_desc (Starts later)"
+      return 1
+    fi
+  fi
+
+  # Default: run the step
+  info "Executing step $step_num ($step_id): $step_desc..."
+  return 0
+}
+

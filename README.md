@@ -1,4 +1,4 @@
-# os-init-scripts
+# fedora
 
 Bash scripts to bootstrap a fresh **Fedora** installation (bare-metal or WSL) with all preferred tools, codecs, and configuration.
 
@@ -7,10 +7,14 @@ Bash scripts to bootstrap a fresh **Fedora** installation (bare-metal or WSL) wi
 **On a fresh Fedora system** (no git required):
 
 ```bash
-curl -sSf https://raw.githubusercontent.com/ThamizhiniyanCS/os-init-scripts/main/bootstrap.sh | bash
+curl -sSf https://raw.githubusercontent.com/ThamizhiniyanCS/fedora/main/bootstrap.sh | bash
+
+# To pass selective execution arguments (e.g. only distrobox):
+curl -sSf https://raw.githubusercontent.com/ThamizhiniyanCS/fedora/main/bootstrap.sh | bash -s -- --only distrobox
 ```
 
-This auto-detects WSL vs bare-metal and runs the appropriate script.
+This auto-detects WSL vs bare-metal, passes the arguments through, and runs the appropriate script.
+
 
 **If you already have the repo cloned:**
 
@@ -23,6 +27,18 @@ This auto-detects WSL vs bare-metal and runs the appropriate script.
 
 # Preview what will be installed (dry-run)
 ./fedora.sh --info
+
+# List available steps for selective execution
+./fedora.sh --list
+
+# Start/resume execution from a specific step (e.g., distrobox onwards)
+./fedora.sh --from distrobox
+
+# Run ONLY specific steps (comma-separated list of step IDs or numbers)
+./fedora.sh --only virtualization,distrobox
+
+# Exclude specific steps
+./fedora.sh --exclude fonts
 ```
 
 ## What Gets Installed
@@ -50,7 +66,7 @@ Run `./fedora.sh --info` for a full table. Here's the overview:
 ## Project Structure
 
 ```
-os-init-scripts/
+fedora/
 ├── bootstrap.sh               # curl one-liner entry point
 ├── fedora.sh                  # Orchestrator — bare-metal
 ├── fedora_wsl.sh              # Orchestrator — WSL
@@ -137,17 +153,21 @@ curl -sSf https://example.com/install.sh | sh
 fedora.sh / fedora_wsl.sh
   │
   ├── 1. Source lib/helpers.sh + packages/catalog.sh
-  ├── 2. Create temp dir, dnf check-update
-  ├── 3. modules/repos.sh        → external repo setup
-  ├── 4. packages/scripts.txt    → curl-based installs
-  ├── 5. packages/copr.txt       → COPR repos + packages
-  ├── 6. packages/dnf.txt        → bulk dnf install (filtered by env)
-  ├── 7. packages/cargo.txt      → cargo install
-  ├── 8. packages/flatpak.txt    → flatpak install from Flathub
-  ├── 9. vscodium_extensions.txt → codium --install-extension (bare-metal only)
-  ├── 10. modules/multimedia.sh  → codecs & drivers (bare-metal only)
-  ├── 11. modules/post_install.sh → shell config, cleanup
-  └── 12. Print summary (successes + failures)
+  ├── 2. Parse arguments and check dry-run (--info)
+  ├── 3. Create temp dir, dnf check-update
+  ├── 4. Step 1: modules/repos.sh        → external repo setup
+  ├── 5. Step 2: packages/scripts.txt    → curl-based installs
+  ├── 6. Step 3: packages/copr.txt       → COPR repos + packages
+  ├── 7. Step 4: packages/dnf.txt        → bulk dnf install (filtered by env)
+  ├── 8. Step 5: packages/cargo.txt      → cargo install
+  ├── 9. Step 6: packages/flatpak.txt    → flatpak install from Flathub
+  ├── 10. Step 7: modules/multimedia.sh  → codecs & drivers (bare-metal only)
+  ├── 11. Step 8: modules/virtualization.sh → nested virtualization (bare-metal only)
+  ├── 12. Step 9: packages/vscodium_extensions.txt → VS Codium extensions (bare-metal only)
+  ├── 13. Step 10: modules/fonts.sh      → Nerd Fonts installation
+  ├── 14. Step 11: modules/distrobox.sh  → Distrobox containers provisioning
+  ├── 15. Step 12: modules/post_install.sh → shell configs, git dotfiles & cleanup
+  └── 16. Print summary (successes + failures)
 ```
 
 The only difference between `fedora.sh` and `fedora_wsl.sh` is the `ENV` variable (`bare-metal` vs `wsl`), which filters packages tagged with `# bare-metal only` or `# wsl only` in the manifest files.
@@ -161,6 +181,59 @@ kitty                    # bare-metal only   ← skipped on WSL
 btop                     # wsl only          ← skipped on bare-metal
 ripgrep                  # no tag = installed everywhere
 ```
+
+## Selective Step Execution
+
+To support testing individual modules, debugging installation failures, or resuming interrupted installs, you can selectively control which setup steps run using command-line arguments.
+
+### Execution Control Flags
+
+* `--list`: Lists all available steps for the current environment (`bare-metal` or `wsl`) and exits.
+* `--from <step>`: Starts execution from the specified step name or number (inclusive) and runs all subsequent steps.
+* `--only <steps>`: Executes only the specified step name(s) or number(s). Multiple steps can be separated by commas.
+* `--exclude <steps>`: Runs all steps except the specified step name(s) or number(s). Multiple steps can be separated by commas.
+
+### Available Steps
+
+Steps can be targeted using either their step number or their short step ID.
+
+| Step # (Bare-Metal) | Step # (WSL) | Step ID | Description |
+| :---: | :---: | :--- | :--- |
+| **1** | **1** | `repos` | External repository configurations |
+| **2** | **2** | `scripts` | Script-based binary installers |
+| **3** | **3** | `copr` | COPR repository package installations |
+| **4** | **4** | `dnf` | System packages bulk installation |
+| **5** | **5** | `cargo` | Rust tool integrations |
+| **6** | **6** | `flatpak` | Flatpak applications |
+| **7** | **7** | `multimedia` | Codecs & drivers *(skipped on WSL)* |
+| **8** | -- | `virtualization` | Virt manager & nested KVM |
+| **9** | -- | `vscodium` | VS Codium extensions |
+| **10** | **8** | `fonts` | Nerd Fonts installation |
+| **11** | **9** | `distrobox` | Distrobox container provisioning |
+| **12** | **10** | `post_install` | Dotfiles, default shell setup & cleanup |
+
+### Advanced Examples
+
+* **Resume install after a failure on Step 10**:
+  ```bash
+  ./fedora.sh --from 10
+  ```
+* **Test the virtualization and distrobox configurations only (using step IDs)**:
+  ```bash
+  ./fedora.sh --only virtualization,distrobox
+  ```
+* **Test the virtualization and distrobox configurations only (using step numbers)**:
+  ```bash
+  ./fedora.sh --only 8,11
+  ```
+* **Run the entire script but skip Flatpaks and Nerd Fonts (using step numbers)**:
+  ```bash
+  ./fedora.sh --exclude 6,10
+  ```
+* **Running via the one-liner command**:
+  ```bash
+  curl -sSf https://raw.githubusercontent.com/ThamizhiniyanCS/fedora/main/bootstrap.sh | bash -s -- --only distrobox
+  ```
 
 ## Requirements
 
