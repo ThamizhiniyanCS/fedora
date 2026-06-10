@@ -570,3 +570,47 @@ should_run_step() {
   return 0
 }
 
+# ==============================================================================
+# DNF Configuration Optimization
+# ==============================================================================
+configure_dnf_parallel_downloads() {
+  info "Optimizing DNF parallel downloads..."
+
+  # Try the native DNF command first
+  if sudo dnf config-manager setopt max_parallel_downloads=10 &>/dev/null; then
+    success "DNF parallel downloads optimized (max_parallel_downloads=10)."
+  else
+    # Fallback to direct file modification if config-manager is not supported/available
+    local config_updated=false
+    for config_file in "/etc/dnf/dnf.conf" "/etc/dnf/dnf5.conf"; do
+      if [[ -f "$config_file" ]]; then
+        # 1. If [main] header is missing, prepend it to prevent DNF config errors
+        if ! grep -q "^\[main\]" "$config_file" 2>/dev/null; then
+          local temp_content=""
+          if grep -q "max_parallel_downloads" "$config_file" 2>/dev/null; then
+            temp_content=$(cat "$config_file")
+            echo -e "[main]\n$temp_content" | sudo tee "$config_file" > /dev/null
+          else
+            echo -e "[main]\ngpgcheck=1\ninstallonly_limit=3\nclean_requirements_on_remove=True\nbest=False\nskip_if_unavailable=True" | sudo tee "$config_file" > /dev/null
+          fi
+        fi
+
+        # 2. Add or update parallel downloads optimization
+        if ! grep -q "^max_parallel_downloads" "$config_file" 2>/dev/null; then
+          echo "max_parallel_downloads=10" | sudo tee -a "$config_file" > /dev/null
+        else
+          sudo sed -i 's/^max_parallel_downloads=.*/max_parallel_downloads=10/' "$config_file"
+        fi
+        config_updated=true
+      fi
+    done
+
+    if [[ "$config_updated" == "true" ]]; then
+      success "DNF parallel downloads optimized (max_parallel_downloads=10) via fallback."
+    else
+      info "No DNF config files found to optimize."
+    fi
+  fi
+}
+
+

@@ -29,11 +29,17 @@ neovim
 zoxide
 git-delta
 eza
+fish
 
 [script:debian-shims]
 # Create standard command aliases/symlinks for Debian-specific naming conventions
 sudo ln -sf /usr/bin/fdfind /usr/local/bin/fd
 sudo ln -sf /usr/bin/batcat /usr/local/bin/bat
+
+[script:default-shell]
+# Set fish as the default shell inside the container
+sudo chsh -s /usr/bin/fish "$USER"
+
 
 [script:starship]
 # Install starship natively in the container for prompt responsiveness

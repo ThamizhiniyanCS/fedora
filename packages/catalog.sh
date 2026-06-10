@@ -88,6 +88,7 @@ declare -A PKG_DESC=(
   [tectonic]="Modern, complete, self-contained TeX/LaTeX engine powered by XeTeX and TeX Live"
   [mmdc]="Mermaid CLI to compile Mermaid definitions into images"
   [distrobox]="Use any Linux distribution inside your terminal"
+  [ab-download-manager]="A Download Manager that speeds up your downloads"
 )
 
 declare -A PKG_URL=(
@@ -163,4 +164,5 @@ declare -A PKG_URL=(
   [tectonic]="https://tectonic-typesetting.github.io/en-US/"
   [mmdc]="https://github.com/mermaid-js/mermaid-cli"
   [distrobox]="https://distrobox.it/"
+  [ab-download-manager]="https://github.com/amir1376/ab-download-manager"
 )

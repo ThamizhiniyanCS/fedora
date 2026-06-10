@@ -36,6 +36,8 @@ fi
 header "Fedora Bare-Metal Setup"
 keep_sudo_alive
 
+configure_dnf_parallel_downloads
+
 info "Creating temp directory for downloads..."
 mkdir -p /tmp/fedora-install-script
 cd /tmp/fedora-install-script || exit 1

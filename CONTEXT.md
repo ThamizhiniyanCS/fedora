@@ -46,14 +46,14 @@ fedora/
 ## Current State
 
 The scripts are highly robust, modular, and fully tested against real-world execution hiccups. In the latest session, we:
-- Added `org.qbittorrent.qBittorrent` to the Flatpak manifest, `ms-toolsai.jupyter` to VSCodium extensions, and `podman` to the DNF packages.
+- Added `org.qbittorrent.qBittorrent` to the Flatpak manifest, `ms-toolsai.jupyter` to VSCodium extensions, `podman` to the DNF packages, and `ab-download-manager` script installer.
 - Implemented virtualization and nested virtualization setup for bare-metal in `modules/virtualization.sh` (sourced in `fedora.sh`), supporting AMD/Intel CPUs dynamically.
 - Built a **data-driven Distrobox integration system** in `modules/distrobox.sh`:
   - `packages/distrobox/containers.txt` — Defines containers (name + image).
   - `packages/distrobox/host_forward.txt` — Host integration binaries (like `flatpak`, `podman`, `systemctl`, `xclip`, `xdg-open`) to symlink into containers via `distrobox-host-exec`.
   - `packages/distrobox/<name>.txt` — Per-container manifests with sections: `[pkg-manager]`, `[packages]`, `[script:name]`, `[export-app]`, `[export-bin]`. Filesystem-sensitive tools (`eza`, `bat`, `rg`, `fd`, `fzf`, `nvim`, `jq`, `zoxide`) and shell prompt helpers (`starship`) are installed natively inside the container here to ensure correct filesystem access.
   - The module creates containers idempotently, installs packages/scripts inside them, exports GUI apps and binaries to the host, and forwards host integration binaries into containers.
-  - Initial setup: Ubuntu container with Signal Desktop installed and exported as a GUI app to the host.
+  - Initial setup: Ubuntu container with Signal Desktop installed and exported as a GUI app to the host, and fish configured as the default shell inside the container.
 - Removed the hardcoded distrobox creation from `post_install.sh` in favor of the new manifest system.
 - Implemented **selective step execution and resuming control** in `lib/helpers.sh`:
   - Added support for `--list`, `--from <step>`, `--only <steps>`, and `--exclude <steps>` command-line flags.
