@@ -31,6 +31,7 @@ fzf
 ripgrep
 fd-find
 jq
+gawk
 eza
 xclip
 strace

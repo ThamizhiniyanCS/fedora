@@ -45,6 +45,9 @@ cd /tmp/fedora-install-script || exit 1
 info "Updating package list..."
 sudo dnf check-update || true  # exit code 100 = updates available (not an error)
 
+info "Installing essential prerequisites..."
+sudo dnf install -y git gawk  # WSL minimal images may lack these; needed by helpers
+
 # ==============================================================================
 # 1. External Repositories (GitHub CLI, VSCodium, DangerZone, Proton VPN)
 # ==============================================================================
