@@ -20,6 +20,7 @@ install dnf5-plugins
 # https://cli.github.com/
 # ==============================================================================
 info "Adding GitHub CLI repository..."
+install git  # gh depends on git; WSL minimal images may not include it
 sudo dnf config-manager addrepo --overwrite --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
 install gh --repo gh-cli
 
