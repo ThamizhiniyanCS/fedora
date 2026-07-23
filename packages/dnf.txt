@@ -36,7 +36,7 @@ strace
 xdotool                            # bare-metal only
 
 [media]
-poppler
+poppler                            # bare-metal only
 GraphicsMagick
 GraphicsMagick-devel
 GraphicsMagick-perl
@@ -49,8 +49,8 @@ gnome-tweaks                       # bare-metal only
 
 
 [system]
-fuse
-fuse-libs
+fuse                               # bare-metal only
+fuse-libs                          # bare-metal only
 btop
 podman
 

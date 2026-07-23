@@ -24,7 +24,7 @@ curl -sS https://starship.rs/install.sh | sh -s -- -y
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 [mmdc]
-export PATH="$HOME/.local/bin:$PATH" && uv tool install mmdc
+if [[ "$ENV" == "bare-metal" ]]; then export PATH="$HOME/.local/bin:$PATH" && uv tool install mmdc; else echo "Skipping mmdc on WSL."; fi
 
 [bun]
 curl -fsSL https://bun.sh/install | bash
@@ -36,24 +36,24 @@ export PATH="$HOME/.bun/bin:$PATH" && bun -g install tree-sitter-cli
 curl -fsSL https://fnm.vercel.app/install | bash
 
 [brave]
-curl -fsS https://dl.brave.com/install.sh | sh
+if [[ "$ENV" == "bare-metal" ]]; then curl -fsS https://dl.brave.com/install.sh | sh; else echo "Skipping brave on WSL."; fi
 
 [zoxide]
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 [tectonic]
-if [ ! -d "$HOME/.local/bin" ]; then mkdir -p "$HOME/.local/bin"; fi && curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh && mv tectonic "$HOME/.local/bin/"
+if [[ "$ENV" == "bare-metal" ]]; then if [ ! -d "$HOME/.local/bin" ]; then mkdir -p "$HOME/.local/bin"; fi && curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh && mv tectonic "$HOME/.local/bin/"; else echo "Skipping tectonic on WSL."; fi
 
 [rclone]
-sudo -v ; curl https://rclone.org/install.sh | sudo bash
+if [[ "$ENV" == "bare-metal" ]]; then sudo -v ; curl https://rclone.org/install.sh | sudo bash; else echo "Skipping rclone on WSL."; fi
 
 [distrobox]
-curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh
+if [[ "$ENV" == "bare-metal" ]]; then curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh; else echo "Skipping distrobox on WSL."; fi
 
 [ab-download-manager]
 if [[ "$ENV" == "bare-metal" ]]; then bash <(curl -fsSL https://raw.githubusercontent.com/amir1376/ab-download-manager/master/scripts/install.sh); else echo "Skipping ab-download-manager on WSL."; fi
 
 [ollama]
-curl -fsSL https://ollama.com/install.sh | sh
+if [[ "$ENV" == "bare-metal" ]]; then curl -fsSL https://ollama.com/install.sh | sh; else echo "Skipping ollama on WSL."; fi
 
 

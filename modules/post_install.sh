@@ -61,8 +61,8 @@ info "Configuring dotfiles repo to ignore untracked files..."
 dotfiles config --local status.showUntrackedFiles no
 success "Dotfiles configured successfully."
 
-# --- Interactive installs ---
-if [[ -f "$SCRIPT_DIR/packages/interactive_scripts.txt" ]]; then
+# --- Interactive installs (bare-metal only) ---
+if [[ "$ENV" == "bare-metal" && -f "$SCRIPT_DIR/packages/interactive_scripts.txt" ]]; then
   install_scripts "$SCRIPT_DIR/packages/interactive_scripts.txt"
 fi
 

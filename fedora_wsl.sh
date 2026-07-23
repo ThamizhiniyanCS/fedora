@@ -81,36 +81,16 @@ if should_run_step "cargo" 5 "Cargo Packages"; then
 fi
 
 # ==============================================================================
-# 6. Flatpak packages (Obsidian, Zen Browser, Ungoogled Chromium)
+# 6. Nerd Fonts (CascadiaCode)
 # ==============================================================================
-if should_run_step "flatpak" 6 "Flatpak Packages"; then
-  install_flatpak_packages "$SCRIPT_DIR/packages/flatpak.txt"
-fi
-
-# ==============================================================================
-# 7. Multimedia — SKIPPED for WSL (no hardware codecs needed)
-# ==============================================================================
-if should_run_step "multimedia" 7 "Multimedia & Codecs"; then
-  info "Skipping multimedia setup (not applicable in WSL)."
-fi
-
-# ==============================================================================
-# 8. Nerd Fonts (CascadiaCode)
-# ==============================================================================
-if should_run_step "fonts" 8 "Nerd Fonts"; then
+if should_run_step "fonts" 6 "Nerd Fonts"; then
   source "$SCRIPT_DIR/modules/fonts.sh"
 fi
 
 # ==============================================================================
-# 9. Distrobox containers (create, provision, export, forward host binaries)
+# 7. Post-install configuration
 # ==============================================================================
-if should_run_step "distrobox" 9 "Distrobox Containers"; then
-  source "$SCRIPT_DIR/modules/distrobox.sh"
-fi
-
-# ==============================================================================
-# 10. Post-install configuration
-# ==============================================================================
-if should_run_step "post_install" 10 "Post-install Configuration"; then
+if should_run_step "post_install" 7 "Post-install Configuration"; then
   source "$SCRIPT_DIR/modules/post_install.sh"
 fi
+
