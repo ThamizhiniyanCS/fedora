@@ -57,6 +57,14 @@ The scripts are highly robust, modular, and fully tested against real-world exec
 - Removed the hardcoded distrobox creation from `post_install.sh` in favor of the new manifest system.
 - Implemented **selective step execution and resuming control** in `lib/helpers.sh`:
   - Added support for `--list`, `--from <step>`, `--only <steps>`, and `--exclude <steps>` command-line flags.
-  - Wrapped all installation steps in `fedora.sh` (12 steps) and `fedora_wsl.sh` (10 steps) in `should_run_step` conditional blocks.
+  - Wrapped all installation steps in `fedora.sh` (13 steps) and `fedora_wsl.sh` (10 steps) in `should_run_step` conditional blocks.
 - Registered all new packages in `catalog.sh`.
+- Added **NVIDIA GPU driver module** (`modules/nvidia.sh`) as step 8 in `fedora.sh`:
+  - RPM Fusion `akmod-nvidia` (auto-rebuilding kernel module).
+  - NVIDIA official open kernel modules + CUDA toolkit from NVIDIA's Fedora repo.
+  - Secure Boot MOK enrollment with reboot reminder banner.
+  - Renumbered steps 8–12 → 9–13 in `fedora.sh`.
+- Added **Ollama** to `packages/scripts.txt` (non-interactive curl installer).
+- Added **NextDNS** to `packages/interactive_scripts.txt` (requires user interaction, runs after Burp Suite).
+- Added catalog entries for `ollama`, `nextdns`, `akmod-nvidia`, and `nvidia-driver` in `packages/catalog.sh`.
 

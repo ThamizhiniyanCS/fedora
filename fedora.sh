@@ -95,36 +95,44 @@ if should_run_step "multimedia" 7 "Multimedia & Codecs"; then
 fi
 
 # ==============================================================================
-# 8. Virtualization & Nested Virtualization (bare-metal only)
+# 8. NVIDIA GPU drivers (bare-metal only)
 # ==============================================================================
-if should_run_step "virtualization" 8 "Virtualization & Nested Virtualization"; then
+if should_run_step "nvidia" 8 "NVIDIA GPU Drivers"; then
+  source "$SCRIPT_DIR/modules/nvidia.sh"
+fi
+
+# ==============================================================================
+# 9. Virtualization & Nested Virtualization (bare-metal only)
+# ==============================================================================
+if should_run_step "virtualization" 9 "Virtualization & Nested Virtualization"; then
   source "$SCRIPT_DIR/modules/virtualization.sh"
 fi
 
 # ==============================================================================
-# 9. VSCodium extensions (bare-metal only)
+# 10. VSCodium extensions (bare-metal only)
 # ==============================================================================
-if should_run_step "vscodium" 9 "VSCodium Extensions"; then
+if should_run_step "vscodium" 10 "VSCodium Extensions"; then
   install_vscodium_extensions "$SCRIPT_DIR/packages/vscodium_extensions.txt"
 fi
 
 # ==============================================================================
-# 10. Nerd Fonts (CascadiaCode)
+# 11. Nerd Fonts (CascadiaCode)
 # ==============================================================================
-if should_run_step "fonts" 10 "Nerd Fonts"; then
+if should_run_step "fonts" 11 "Nerd Fonts"; then
   source "$SCRIPT_DIR/modules/fonts.sh"
 fi
 
 # ==============================================================================
-# 11. Distrobox containers (create, provision, export, forward host binaries)
+# 12. Distrobox containers (create, provision, export, forward host binaries)
 # ==============================================================================
-if should_run_step "distrobox" 11 "Distrobox Containers"; then
+if should_run_step "distrobox" 12 "Distrobox Containers"; then
   source "$SCRIPT_DIR/modules/distrobox.sh"
 fi
 
 # ==============================================================================
-# 12. Post-install configuration
+# 13. Post-install configuration
 # ==============================================================================
-if should_run_step "post_install" 12 "Post-install Configuration"; then
+if should_run_step "post_install" 13 "Post-install Configuration"; then
   source "$SCRIPT_DIR/modules/post_install.sh"
 fi
+

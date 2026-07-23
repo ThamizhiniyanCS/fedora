@@ -53,4 +53,7 @@ curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo
 [ab-download-manager]
 if [[ "$ENV" == "bare-metal" ]]; then bash <(curl -fsSL https://raw.githubusercontent.com/amir1376/ab-download-manager/master/scripts/install.sh); else echo "Skipping ab-download-manager on WSL."; fi
 
+[ollama]
+curl -fsSL https://ollama.com/install.sh | sh
+
 

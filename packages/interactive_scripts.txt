@@ -7,3 +7,9 @@
 
 [burpsuite]
 wget -O burpsuite_installer.sh "https://portswigger.net/burp/releases/download?product=desktop&type=Linux" && chmod +x burpsuite_installer.sh && ./burpsuite_installer.sh
+
+[nextdns]
+sh -c "$(curl -sL https://nextdns.io/install)"
+
+[nvidia-mok-enroll]
+if [[ -f /var/lib/dkms/mok.pub ]]; then sudo mokutil --import /var/lib/dkms/mok.pub; else echo "No DKMS MOK key found — skipping."; fi

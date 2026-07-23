@@ -89,6 +89,13 @@ declare -A PKG_DESC=(
   [mmdc]="Mermaid CLI to compile Mermaid definitions into images"
   [distrobox]="Use any Linux distribution inside your terminal"
   [ab-download-manager]="A Download Manager that speeds up your downloads"
+  [ollama]="Get up and running with large language models locally"
+  [nextdns]="NextDNS protects you from all kinds of security threats, blocks ads and trackers on websites and in apps"
+
+  # --- nvidia ---
+  [akmod-nvidia]="RPM Fusion auto-rebuilding NVIDIA kernel module"
+  [nvidia-driver]="NVIDIA official open kernel modules, driver, and CUDA toolkit"
+  [nvidia-mok-enroll]="Enroll DKMS Machine Owner Key for Secure Boot with NVIDIA drivers"
 )
 
 declare -A PKG_URL=(
@@ -165,4 +172,11 @@ declare -A PKG_URL=(
   [mmdc]="https://github.com/mermaid-js/mermaid-cli"
   [distrobox]="https://distrobox.it/"
   [ab-download-manager]="https://github.com/amir1376/ab-download-manager"
+  [ollama]="https://ollama.com/"
+  [nextdns]="https://nextdns.io/"
+
+  # --- nvidia ---
+  [akmod-nvidia]="https://docs.fedoraproject.org/en-US/gaming/drivers/"
+  [nvidia-driver]="https://docs.nvidia.com/datacenter/tesla/driver-installation-guide/fedora.html"
+  [nvidia-mok-enroll]="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/#fedora-installation"
 )
